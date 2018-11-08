@@ -4,23 +4,37 @@ var LinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
-    // if list.head and list.tail are both null when addToTail is invoked
-      // create newNode
-      // list.head and list.tail both assigned newNode 
-    // var newNode = Node(4);
-    // node = {
-    //   value: 4,
-    //   next: null
-    // }
-    
-    // iterate thru keys in linkedList 
-      // 
+    var newNode = Node(value);
+    if (!this.head && !this.tail) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
   };
 
   list.removeHead = function() {
+    var tempValue = this.head.value;
+    this.head = this.head.next;
+    return tempValue;
   };
 
   list.contains = function(target) {
+    var currNode = this.head;
+    while (currNode.next !== null) {
+      if (currNode.value === target) {
+        return true;
+      } else {
+        currNode = currNode.next;
+      }
+    }
+
+    if (currNode.value === target) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return list;
