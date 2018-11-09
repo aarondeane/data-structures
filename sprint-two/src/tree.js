@@ -12,30 +12,31 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  // Create a var for new child and insantiate and instance(value)
   var newChild = Tree(value);
-  // if this.children has no length
   this.children.push(newChild);
   
 };
 
 treeMethods.contains = function(target) {
-  // Check top level tree object for target value
+  var results = false;
+
   if (this.value === target) {
-    return true;
+    results = true;
   }
-  
-  // If there are children, iterate through children
   if (this.children.length > 0) {
     for (var i = 0; i < this.children.length; i++) {
-      this.children[i].contains;
+      if (this.children[i].contains(target)) {
+        return true; 
+      } 
     }
-    // call contains on the child object
   }
   //
-  return false;
+  return results;
   
 };
+
+
+// 
 
 
 /*
