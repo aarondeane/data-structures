@@ -7,22 +7,34 @@ var HashTable = function() {
 
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  // Generate a hash index based on the key 'val1'
-  // Call retrieve on the key to return the array at that index
-  // push the value to the returned array
-  // pass the new array into set with the hased index and both values
   
+  var bucket = this._storage.get(index);
+  
+  if (bucket === undefined) {
+    v = [k, v];
+  } else {
+    if (bucket.indexOf(k) === -1) {
+      v = bucket.concat(k, v);
+    } else {
+      v = [k, v];       
+    }
+  }
   
   this._storage.set(index, v);
 };
-  
-  
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-
-  return this._storage.get(index);
+  var bucket = this._storage.get(index);
   
+  if (bucket === undefined) {
+    return bucket;    
+  }
+  if (bucket.indexOf(k) !== -1) {
+    return bucket[bucket.indexOf(k) + 1];
+  }
+  
+
 };
 
 HashTable.prototype.remove = function(k) {
