@@ -9,28 +9,25 @@ var BinarySearchTree = function(value) {
   newBinaryTree.right = {};
   
   newBinaryTree.insert = function(currVal){
-    //First check to see how many children the top node has
-    //If left and right are empty    
-    if (this.left === undefined && this.right === undefined) {
-      // Check whether what is being inserted is <> current node value left/right
-      if (currVal > this.value) {
-        this.left = BinarySearchTree(currVal);
-      } else {
-        // insert into left
-      }
-    }
-    
-      
-    // If there is between 0 and 1 child
-      
-      // and if left or right spot is occupied depending on the result
-        //if it's empty insert
-        //if it's not empty drill down to the next node level and repeat from top
-    // Else there must be two children in the current node so... 
-    // drill down to next node level and repeat from top
+    var newBranch = BinarySearchTree(currVal);
 
+      if (currVal > this.value) {
+        if (Object.keys(this.right).length === 0) {
+          this.right = newBranch;
+        } else {
+          this.right.insert(currVal);
+        }
+      } else {
+        if (Object.keys(this.left).length === 0) {
+          this.left = newBranch;
+        } else {
+          this.left.insert(currVal);
+        }
+      }
   };
-  newBinaryTree.contains = function(){};
+  newBinaryTree.contains = function(){
+    
+  };
   newBinaryTree.depthFirstLog = function(){};
  
   return newBinaryTree;
