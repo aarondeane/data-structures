@@ -4,7 +4,6 @@ var BinarySearchTree = function(value) {
   
   newBinaryTree.value = value;
   
-  //newBinaryTree.children = [];
   newBinaryTree.left = {};
   newBinaryTree.right = {};
   
@@ -25,55 +24,68 @@ var BinarySearchTree = function(value) {
         }
       }
   };
-  newBinaryTree.contains = function(){
+  
+  newBinaryTree.contains = function(currVal){
+
+    if (currVal === this.value) {
+      return true;
+    }
+    
+    if (currVal < this.value) {
+      if (Object.keys(this.left).length !== 0) {
+        return this.left.contains(currVal);
+      } else {
+        return false;
+      }
+    }
+     
+    if (currVal > this.value) {
+      if (Object.keys(this.right).length !== 0) {
+        return this.right.contains(currVal);
+      } else {
+        return false;
+      }
+    }
     
   };
-  newBinaryTree.depthFirstLog = function(){};
+  
+  newBinaryTree.depthFirstLog = function(func) {
+    func(this.value);
+    
+    if(Object.keys(this.left).length !== 0) {
+      this.left.depthFirstLog(func);
+    }
+    
+    if(Object.keys(this.right).length !== 0) {
+      this.right.depthFirstLog(func);
+    }
+       
+    
+  };
  
   return newBinaryTree;
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-// ed = {
-//   value: 5,
-//   left: {},
-//   right: {}
-// }
-
-// binarySearchTree.insert(2);
-// ed = {
-//   value: 5,
-//   left: {
-//     {value: 2, 
-//      left: {},
-//      right: {},
-//    }
-//   },
-//   right: {}
-// }
-// binarySearchTree.insert(3);
-// ed = {
-//   value: 5,
-//   left: {
-//     {value: 2, 
-//      left: {},
-//      right: {
-//       {value: 3,
-//        left: {},
-//        right: {},
-//      }
-//     },
-//    }
-//   },
-//   right: {}
-// }
-
-
-// binarySearchTree.insert(7);
-// binarySearchTree.insert(6);
-// expect(binarySearchTree.left.right.value).to.equal(3);
-// expect(binarySearchTree.right.left.value).to.equal(6);
